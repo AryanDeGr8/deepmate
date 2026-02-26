@@ -43,6 +43,15 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'last_logged' => 'date:m/d/Y',
+
         ];
+    }
+
+
+    public function dailyTimes()
+    {
+        $this->hasMany(DailyTime::class);
+
     }
 }

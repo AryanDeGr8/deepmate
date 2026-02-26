@@ -18,8 +18,14 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => fake()->name(),
+            'email' => fake()->email(),
+            'current_streak' => 0,
+            'longest_streak' => 0,
+
         ]);
+
+        $this->call(DailyTimeSeeder::class);
+
     }
 }
