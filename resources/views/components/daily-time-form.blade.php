@@ -1,5 +1,5 @@
 
-@if(!$editDailyTime || !getTodaysDailyTime(Auth::user()))
+@if(!$editDailyTime || !Auth::user()->getTodaysDailyTime())
 <form method="POST" action="{{ route('dailytime.store' ) }}">
     @csrf
 

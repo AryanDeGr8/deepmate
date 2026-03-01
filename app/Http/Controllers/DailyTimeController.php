@@ -89,7 +89,7 @@ class DailyTimeController extends Controller
 
         $time = $hours * 60 + $minutes;
 
-        $dailyTime = getTodaysDailyTime(Auth::user());
+        $dailyTime = Auth::user()->getTodaysDailyTime();
 
         $dailyTime->time = $time;
 

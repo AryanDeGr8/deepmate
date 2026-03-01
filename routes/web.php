@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing-page');
 });
 
 Route::get('/dashboard', function () {
@@ -23,9 +23,10 @@ Route::get('/dashboard', function () {
 
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/friends', function () {
-    return view('friends');
-})->middleware(['auth', 'verified'])->name('friends');
+
+// Route::get('/friends', function () {
+//     return view('friends');
+// })->middleware(['auth', 'verified'])->name('friends');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,15 +38,20 @@ Route::middleware('auth')->group(function () {
 Route::post('/dailytime', [DailyTimeController::class, 'store'])->middleware(['auth', 'verified'])->name('dailytime.store');
 Route::put('/dailytime', [DailyTimeController::class, 'update'])->middleware(['auth', 'verified'])->name('dailytime.update');
 
-Route::get('/dabdab', function () {
-
-    $user = User::find(52);
-
-    incrementStreak($user);
 
 
-    return shouldStreakBeIncremented($user) ? 'true' : 'false';
-    // return $user;
-});
+// Route::get('/dabdab', function () {
+
+//     $user = User::find(52);
+
+//     incrementStreak($user);
+
+
+//     return shouldStreakBeIncremented($user) ? 'true' : 'false';
+//     // return $user;
+// });
+
+// Route::view('/hello', 'helloworld')->name('hello');
+
 
 require __DIR__ . '/auth.php';
