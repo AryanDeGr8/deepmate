@@ -52,11 +52,58 @@ class User extends Authenticatable
     }
 
 
+    public function sentFriendRequests()
+    {
+        return $this->sentFriendships()->wherePivot('status', '=', 'pending');
+    }
+
+    public function receivedFriendRequests()
+    {
+        return $this->receivedFriendships()->wherePivot('status', '=', 'pending');
+    }
+
+    public function sentBlocks()
+    {
+        return $this->sentFriendships()->wherePivot('status', '=', 'blocked');
+    }
+
+    public function receivedBlocks()
+    {
+        return $this->receivedFriendships()->wherePivot('status', '=', 'blocked');
+    }
+
+    public function friends()
+    {
+        return $this->sentAcceptedRequests->merge($this->receivedAcceptedRequests);
+    }
+
+    public function sentAcceptedRequests()
+    {
+        return $this->sentFriendships()->wherePivot('status', '=', 'accepted');
+    }
+
+    public function receivedAcceptedRequests()
+    {
+        return $this->receivedFriendships()->wherePivot('status', '=', 'accepted');
+    }
+
+    public function sentFriendships()
+    {
+        return $this->belongsToMany(User::class, 'friendships', 'requester_id', 'addressee_id');
+    }
+
+    public function receivedFriendships()
+    {
+        return $this->belongsToMany(User::class, 'friendships', 'addressee_id', 'requester_id');
+    }
+
     public function getTodaysDailyTime()
     {
         return $this->dailyTimes()->where('date', '=', today())->first();
 
     }
+
+
     public function dailyTimes()
     {
         return $this->hasMany(DailyTime::class);

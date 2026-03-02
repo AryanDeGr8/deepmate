@@ -40,16 +40,15 @@ Route::put('/dailytime', [DailyTimeController::class, 'update'])->middleware(['a
 
 
 
-// Route::get('/dabdab', function () {
+Route::get('/dabdab', function () {
 
-//     $user = User::find(52);
-
-//     incrementStreak($user);
+    $user = User::find(20);
 
 
-//     return shouldStreakBeIncremented($user) ? 'true' : 'false';
-//     // return $user;
-// });
+
+    return $user->receivedBlocks;
+    // return $user;
+});
 
 // Route::view('/hello', 'helloworld')->name('hello');
 
