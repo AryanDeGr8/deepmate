@@ -52,6 +52,11 @@ class User extends Authenticatable
     }
 
 
+
+
+
+    // Friendship Logic
+
     public function sentFriendRequests()
     {
         return $this->sentFriendships()->wherePivot('status', '=', 'pending');
@@ -89,14 +94,19 @@ class User extends Authenticatable
 
     public function sentFriendships()
     {
-        return $this->belongsToMany(User::class, 'friendships', 'requester_id', 'addressee_id');
+        return $this->belongsToMany(User::class, 'friendships', 'requester_id', 'addressee_id')->withPivot('id', 'status');
     }
 
     public function receivedFriendships()
     {
-        return $this->belongsToMany(User::class, 'friendships', 'addressee_id', 'requester_id');
+        return $this->belongsToMany(User::class, 'friendships', 'addressee_id', 'requester_id')->withPivot('id', 'status');
     }
 
+
+
+
+
+    // DailyTime Logic
     public function getTodaysDailyTime()
     {
         return $this->dailyTimes()->where('date', '=', today())->first();

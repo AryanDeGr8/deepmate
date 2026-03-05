@@ -24,6 +24,28 @@
 
             <div class="p-4 sm:p-8 bg-slate-900/60 backdrop-blur border border-slate-800 text-slate-100 shadow sm:rounded-lg">
                 <div class="max-w-xl">
+                    <section>
+                        <header>
+                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                {{ __('Blocked Users') }}
+                            </h2>
+
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                {{ __('Manage the users you have blocked.') }}
+                            </p>
+                        </header>
+
+                        <form method="get" action="{{ route('profile.blocked') }}" class="mt-6 space-y-6">
+                            <div class="mt-6 flex justify-start">
+                                <x-primary-button > {{ __('See Blocked Users') }}</x-primary-button>
+                            </div>
+                        </form>
+                    </section>
+
+                </div>
+            </div>
+            <div class="p-4 sm:p-8 bg-slate-900/60 backdrop-blur border border-slate-800 text-slate-100 shadow sm:rounded-lg">
+                <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>

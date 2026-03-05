@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\DailyTimeController;
+use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Models\DailyTime;
 use App\Models\Quote;
 use App\Models\User;
@@ -24,9 +26,19 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-// Route::get('/friends', function () {
-//     return view('friends');
-// })->middleware(['auth', 'verified'])->name('friends');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/friends', [FriendshipController::class, 'index'])->name('friends');
+    Route::post('/friends', [FriendshipController::class, 'store'])->name('friends.store');
+    Route::patch('/friends/{friendship}', [FriendshipController::class, 'update'])->name('friends.update');
+    Route::delete('/friends/{friendship}', [FriendshipController::class, 'destroy'])->name('friends.destroy');
+
+    Route::get('/friends/add', SearchController::class)->name('friends.add');
+    Route::get('/friends/requests', [FriendshipController::class, 'index'])->name('friends.requests');
+    Route::get('/profile/blocked', [FriendshipController::class, 'index'])->name('profile.blocked');
+
+
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -42,7 +54,7 @@ Route::put('/dailytime', [DailyTimeController::class, 'update'])->middleware(['a
 
 Route::get('/dabdab', function () {
 
-    $user = User::find(20);
+    $user = User::find(52);
 
 
 

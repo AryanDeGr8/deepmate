@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreFriendshipRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class StoreFriendshipRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +25,8 @@ class StoreFriendshipRequest extends FormRequest
     {
         return [
             //
+            'user_id' => ['required', 'integer', Rule::notIn([Auth::user()->id])],
+            'action' => ['required', Rule::in(['block', 'add'])]
         ];
     }
 }
